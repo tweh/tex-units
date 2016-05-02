@@ -1,0 +1,62 @@
+
+\newcommand{\TITLE}{Lägeneinheiten in \TeX}
+
+\newcommand{\INTRO}{%
+   Die Umrechnungen weisen teilweise Rundungsfehler auf und dienen daher nur als
+   Orientierung.
+   
+   Die gezeigten Linien sind immer \SI{1}{\mm} dick. Bitte beachten sie auch,
+   dass die besonders kurzen Linien auf Ihrem Ausgabegerät unter Umständen nicht
+   genau dargestellt werden können und deswegen dicker erscheinen.
+}
+
+\newcommand{\PRIMARYUNITS}{%
+   \TestUnit
+      {Skalierter Punkt (\textit{Scaled Point})}
+      {Ein skalierter Punkt entspricht 1/\num{65536} Punkt.}
+      [Der skalierte Punkt ist die kleinste Einheit, auf die
+         \TeX\ alles zurückführt.]
+      {sp}
+   \TestUnit{(PostScript-)Punkt}{Ein Punkt entspricht 1/\num{72.27} Zoll.}{pt}
+   \TestUnit
+      {DTP-Punkt (\textit{Big Point})}
+      {Ein DTP-Punkt entspricht 1/\num{72} Zoll.}
+      [Word, InDesign und andere DTP-Programme verwenden diese
+         Definition für den Punkt.]
+      {bp}
+   \TestUnit{Didot-Punkt}{Alte Einheit der europäischen Drucker}{dd}
+   \TestUnit{Millimeter}{SI-Einheit}{mm}
+   \TestUnit{Pica}{Ein Pica sind zwölf Punkt.}{pc}
+   \TestUnit{Cicero}{Ein Cicero sind zwölf Didot-Punk.}{cc}
+   \TestUnit{Zentimeter}{SI-Einheit}{cm}
+   \TestUnit{Zoll (\textit{Inch})}{Ein Zoll entspricht \num{2.54}
+      Zentimetern.}{in}
+}
+
+\newcommand{\SECONDARYUNITS}{%
+   \TestUnit*
+      {Geviert (\emph{Em})}
+      {Ein Geviert ist abhängig von der aktuellen Schriftart und -größe. Diese Einheit wird
+         über die Schriftdatei eingestellt.}
+      [Diese Einheit sollte für alle horizontalen Abstände, die sich mit der Schriftgröße
+         ändern, verwendet werden, z.\,B. den Absatzeinzug.]
+      {em}
+   \TestUnit*
+      {x-Höhe (\emph{Ex})}
+      {Die x-Höhe ist abhängig von der aktuellen Schriftart und -größe. Sie bezieht
+         sich auf die Höhe der Kleinbuchstaben und wird über die Schriftdatei eingestellt.}
+      [Diese Einheit sollte für alle vertikalen Abstände, die sich mit der Schriftgröße
+         ändern, verwendet werden.]
+      {ex}
+   \TestUnit*
+      {Matheeinheit (\textit{Math Unit})}
+      {Eine Matheeinheit entspricht 1/18 Geviert der aktiven Mathesymbolschrift.}
+      [Diese Einheit ist nur im Mathemodus verfügbar und kann dort nur für Abstände
+         und Unterschneidungen eingesetzt werden.]
+      {mu}
+}
+
+\newcommand{\INFOTEXT}{%
+   Copyright © 2016, Tobias Weh (\href{http://tobiw.de}{tobiw.de})\\
+   Quellcode unter \url{https://github.com/tweh/tex-units} verfügbar.
+}

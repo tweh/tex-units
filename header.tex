@@ -1,0 +1,251 @@
+
+\usepackage[utf8]{inputenc}% Input encoding (DE: http://tobiw.de/tex-faq#kodierung)
+\usepackage[T1]{fontenc}% Font encoding (DE: http://tobiw.de/tex-faq#kodierung)
+
+\usepackage{babel}% Language package (DE: http://tobiw.de/tex-faq#babel)
+
+\usepackage[sfdefault]{FiraSans}% Load font
+\KOMAoptions{fontsize = 8.5pt}% base font size
+
+\usepackage{geometry}% page layout (DE: http://tobiw.de/tbdm/layout-1)
+
+\pagestyle{empty}% hide page number
+                 % (DE: http://tobiw.de/tbdm/layout-2)
+
+\setlength{\parindent}{0pt}% no par indent
+                           % (DE: http://tobiw.de/tex-faq#laengen)
+
+\usepackage{siunitx}% package for numbers/units (DE: http://tobiw.de/tbdm/siunitx)
+   \sisetup{
+      detect-all,% detect all fonts for numbers/units
+   }
+   \addto\extrasngerman{\sisetup{locale = DE}}% german setup
+
+\usepackage{xcolor}% color package
+
+\usepackage{graphicx}% we nee \rotatebox
+
+\usepackage{xparse}% for LaTeX3 functions and \NewDocumentCommand etc.
+
+\usepackage{multicol}% multi columns
+
+\usepackage{ragged2e}% nun-justified text
+   \RaggedRight
+
+\usepackage{metalogo}% correct settings for \TeX logo etc.
+   \setlogokern{eX}{-0.02em}
+   \setlogodrop{0.4ex}
+
+\usepackage{hyperref}% interactive documents
+   \urlstyle{same}% don't change URL font
+
+% DEFINE TEXT LABELS
+\defcaptionname{ngerman}{\definitionname}{Definition}
+\defcaptionname{ngerman}{\notename}{Anmerkung}
+\defcaptionname{ngerman}{\conversionname}{Umrechnung}
+\defcaptionname{english}{\definitionname}{Definition}
+\defcaptionname{english}{\notename}{Note}
+\defcaptionname{english}{\conversionname}{Conversion}
+\AtBeginDocument{
+   \providecommand{\definitionname}{Definition}
+   \providecommand{\notename}{Note}
+   \providecommand{\conversionname}{Conversion}
+}
+
+\ExplSyntaxOn% switch on LaTeX3 syntax (DE: http://tobiw.de/tbdm/funktionssymbole)
+
+% DEFINE SOME VARIABLES
+% page margins
+\dim_new:N \c_ut_page_margin_dim
+\dim_set:Nn \c_ut_page_margin_dim { 10mm }
+% right column width
+\dim_new:N \c_ut_right_layout_col_width_dim
+\dim_set:Nn \c_ut_right_layout_col_width_dim { 50mm }
+\newlength { \RightColWidth }
+\setlength { \RightColWidth } { \c_ut_right_layout_col_width_dim }
+% layout column sep
+\dim_new:N \c_ut_layout_col_sep_dim
+\dim_set:Nn \c_ut_layout_col_sep_dim { 5mm }
+% layout column sep
+\newlength { \RightColShift }
+\AtBeginDocument {
+   \setlength { \RightColShift }
+      { \dim_eval:n { \textwidth + \c_ut_layout_col_sep_dim } }
+}
+% inner sep of boxes
+\dim_new:N \c_ut_inner_sep_dim
+\dim_set:Nn \c_ut_inner_sep_dim { 2mm }
+% outer sep of boxes
+\dim_new:N \c_ut_outer_sep_dim
+\dim_set_eq:NN \c_ut_outer_sep_dim \c_ut_inner_sep_dim
+% thickness of small example rule (right at box)
+\dim_new:N \c_ut_small_rule_width_dim
+\dim_set:Nn \c_ut_small_rule_width_dim { 2mm }
+% thickness of big example rules
+\dim_new:N \c_ut_big_rule_width_dim
+\dim_set:Nn \c_ut_big_rule_width_dim { 4mm }
+% width of the boxes containing big example rules
+\dim_new:N \c_ut_big_rule_box_width_dim
+\dim_set:Nn \c_ut_big_rule_box_width_dim { 5.5mm }
+% property list for saving the colors/units for the big rules
+\prop_new:N \g_ut_big_rules_prop
+% number of current primary color box
+\int_new:N \g_ut_current_color_int
+
+% DEFINE AND SETUP SOME COLORS
+\definecolorset { rgb / gray } { } { } {
+   darkred,     0.643,0.000,0.039 / 0.00 ;
+   red,         0.702,0.259,0.090 / 0.00 ;
+   orange,      0.918,0.506,0.255 / 0.00 ;
+   yellow,      0.949,0.741,0.243 / 0.00 ;
+   green,       0.639,0.718,0.251 / 0.00 ;
+   teal,        0.000,0.667,0.388 / 0.00 ;
+   blue,        0.024,0.318,0.608 / 0.00 ;
+   purple,      0.380,0.259,0.514 / 0.00 ;
+   darkpurple,  0.325,0.012,0.416 / 0.00 ;
+   maintext,    0.000,0.000,0.000 / 0.00 ;
+   primboxtext, 0.000,0.000,0.000 / 0.00 ;
+   secboxtext,  0.000,0.000,0.000 / 0.00 ;
+   secboxfill,  0.000,0.000,0.000 / 0.00 ;
+   ptbarcolor,  0.350,0.350,0.350 / 0.35
+}
+% set main text color
+\color { maintext }
+% sequence variable to save the colors for the primary boxes
+\seq_new:N \c_ut_colors_seq
+\seq_set_from_clist:Nn \c_ut_colors_seq {
+   darkred,
+   red,
+   orange,
+   yellow,
+   green,
+   teal,
+   blue,
+   purple,
+   darkpurple
+}
+
+% SOME LAYOUT SETTINGS
+% page layout
+\geometry{
+   a4paper,
+   margin = \c_ut_page_margin_dim,
+   right = \dim_eval:n {
+      \c_ut_layout_col_sep_dim
+      + \c_ut_right_layout_col_width_dim
+      + \c_ut_page_margin_dim
+   },
+   marginparsep = \c_ut_layout_col_sep_dim,
+   marginparwidth = \c_ut_right_layout_col_width_dim,
+%   showframe,
+}
+% space between columns
+\setlength { \columnsep } { \c_ut_outer_sep_dim }
+% inner spacing of \colorbox
+\setlength { \fboxsep } { \c_zero_dim }
+% sectioning font should use 'maintextcolor' (. = current color)
+%\setkomafont { minisec } { \color { l_ut_fill_color } }
+\newkomafont { label } { \sffamily \bfseries \tiny \color { l_ut_fill_color } }
+
+% GENERATE SOME MACRO VARIANTS
+\cs_generate_variant:Nn \seq_item:Nn { NN }
+\cs_generate_variant:Nn \prop_gput:Nnn { Nxx }
+
+% DEFINE MACROS
+% internal macro to print the small labels
+\cs_new:Npn \ut_label:n #1 {
+   \par \vspace { 3mm }
+   { \usekomafont { label } #1 \par }
+}
+% internal macro to draw the big rules
+\cs_new:Npn \ut_make_big_rule:nn #1#2 {
+   \makebox [ \c_ut_big_rule_box_width_dim ] {
+      \raisebox{ 1em } { \rotatebox { 90 } { 10\,#1 } }
+   }
+   \hspace  { -\c_ut_big_rule_box_width_dim }
+   \makebox [ \c_ut_big_rule_box_width_dim ] { \color { #2 } \rule [ -10#1 ]
+      { \c_ut_big_rule_width_dim } { 10#1 } }
+}
+% user macro to genarate boxes
+\NewDocumentCommand { \TestUnit }{ s m m o m } { {
+   \int_gincr:N \g_ut_current_color_int
+   \IfBooleanTF { #1 } {
+      \colorlet { l_ut_text_color } { secboxtext }
+      \colorlet { l_ut_fill_color } { secboxfill }
+      \dim_set:Nn \l_tmpb_dim {
+         \linewidth - 2\c_ut_inner_sep_dim
+      }
+   } {
+      \colorlet { l_ut_text_color } { primboxtext }
+      \colorlet { l_ut_fill_color }
+         { \seq_item:NN \c_ut_colors_seq \g_ut_current_color_int }
+      \prop_gput:Nxx \g_ut_big_rules_prop { #5 }
+         { \seq_item:NN \c_ut_colors_seq \g_ut_current_color_int }
+      \dim_set:Nn \l_tmpb_dim {
+         \linewidth
+         - 2\c_ut_inner_sep_dim
+         - \c_ut_small_rule_width_dim 
+      }
+   }
+   \tl_if_eq:nnTF { #5 } { mu } {
+      \hbox_set:Nn \l_tmpa_box { $ \mkern1mu $ }
+   } {
+      \hbox_set:Nn \l_tmpa_box { \hspace { 1#5 } }
+   }
+   \dim_set:Nn \l_tmpa_dim { \box_wd:N \l_tmpa_box }
+   \par \vspace { 1\c_ut_outer_sep_dim plus 5mm }
+   \colorbox { l_ut_fill_color ! 9 } {
+      \rule { 0pt } { \c_ut_inner_sep_dim }
+      \hspace { \c_ut_inner_sep_dim }
+      \begin{minipage} [ t ] { \l_tmpb_dim }
+         \color { l_ut_text_color }
+         \minisec { #2 }
+         \ut_label:n { \definitionname }
+         #3 \par
+         \IfValueT { #4 } {
+            \ut_label:n { Anmerkung } #4 \par
+         }
+         \IfBooleanF { #1 } {
+            \ut_label:n { Umrechnung }
+               \SI { 1 } { #5 } ~
+               \dim_compare:nF { \l_tmpa_dim = 1mm } {
+                   = ~ \SI { \dim_to_decimal_in_unit:nn { \l_tmpa_dim } { 1mm } } { mm } ~
+               }
+               \dim_compare:nF { \l_tmpa_dim = 1pt } {
+                   = ~ \SI { \dim_to_decimal:n { \l_tmpa_dim } } { pt } ~
+               }
+               \dim_compare:nF { \l_tmpa_dim = 1sp } {
+                   = ~ \SI { \dim_to_decimal_in_sp:n { \l_tmpa_dim } } { sp }
+               }
+         }
+         \par \vspace{ \c_ut_inner_sep_dim }
+      \end{minipage}
+      \hspace { \c_ut_inner_sep_dim }
+      \IfBooleanF { #1 } {
+         { \color { l_ut_fill_color ! 26 } \vrule width \c_ut_small_rule_width_dim }
+         \hspace { -\c_ut_small_rule_width_dim }
+         \color { l_ut_fill_color }
+         \rule
+            [ \dim_eval:n { -\l_tmpa_dim + \c_ut_inner_sep_dim } ]
+            { \c_ut_small_rule_width_dim }
+            { \l_tmpa_dim }
+      }
+   }% end colorbox
+} }
+% user macro to draw the big 500 point rules
+\NewDocumentCommand { \DrawRule } { m m } {
+   \makebox [ \c_ut_big_rule_box_width_dim ] {
+      \raisebox { 3.5em } { \rotatebox [ origin = r ] { 90 } { 500\,#1 } }
+   }
+   \hspace  { -\c_ut_big_rule_box_width_dim }
+   \makebox [ \c_ut_big_rule_box_width_dim ] {
+      \color { #2 }
+      \rule [ 4.7em ] { \c_ut_big_rule_width_dim } { 500#1 }
+   }
+}
+% user macro to draw the 10 unit rules
+\NewDocumentCommand{ \DrawRules } {  } {
+   \prop_map_function:NN \g_ut_big_rules_prop \ut_make_big_rule:nn
+}
+
+\ExplSyntaxOff% switch off LaTeX3 syntax

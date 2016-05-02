@@ -1,0 +1,57 @@
+% !TeX spellcheck = en_GB
+
+\providecommand{\TITLE}{Lenght units in \TeX}
+
+\providecommand{\INTRO}{%
+   The given conversions my suffer form rounding errors and are only for guidance.
+   
+   The shown rules are \SI{1}{\mm} thick. Please note that the very short rules
+   may not be rendered correctly on you screen (or printer) and appear longer
+   than they are.
+}
+
+\providecommand{\PRIMARYUNITS}{%
+   \TestUnit
+      {Scaled Point}
+      {The scaled point is defined as 1/\num{65536} points.}
+      [This is the smallest unit \TeX\ uses.]
+      {sp}
+   \TestUnit{(PostScript-)Point}{The point is defined as 1/\num{72.27} inch.}{pt}
+   \TestUnit
+      {Big Point (DTP point)}
+      {The big point is defined as 1/\num{72} Inch.}
+      [Word, InDesign and other DTP applications use this definition for points.]
+      {bp}
+   \TestUnit{Didot Point}{An old unit used by European printers}{dd}
+   \TestUnit{Millimetre}{SI unit}{mm}
+   \TestUnit{Pica}{One pica equals twelve points.}{pc}
+   \TestUnit{Cicero}{One Cicero equals twelve Didot points.}{cc}
+   \TestUnit{Centimetre}{SI unit}{cm}
+   \TestUnit{Inch}{One inch equals \num{2.54} centimetres.}{in}
+}
+
+\providecommand{\SECONDARYUNITS}{%
+   \TestUnit*
+      {Em}
+      {The size of an em depends on the current font family and size. It is about the width
+         of a capital M and its value is defined in the font file.}
+      [This unit should be used for all horizontal distances, that should change with font size,
+         e.g. the paragraph indention.]
+      {em}
+   \TestUnit*
+      {x Height}
+      {The x height depends on the current font family and size. It is about the height
+         of a lower x and its value is defined in the font file.}
+      [This unit should be used for all vertical distances, that should change with font size.]
+      {ex}
+   \TestUnit*
+      {Math Unit}
+      {This unit equals approx. 1/18 em of the math font family.}
+      [It can only be used for spacing in math mode.]
+      {mu}
+}
+
+\providecommand{\INFOTEXT}{%
+   Copyright © 2016, Tobias Weh (\href{http://tobiw.de/en}{tobiw.de/en})\\
+   Source code available at \url{https://github.com/tweh/tex-units}.
+}
