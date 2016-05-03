@@ -203,10 +203,10 @@
          \ut_label:n { \definitionname }
          #3 \par
          \IfValueT { #4 } {
-            \ut_label:n { Anmerkung } #4 \par
+            \ut_label:n { \notename } #4 \par
          }
          \IfBooleanF { #1 } {
-            \ut_label:n { Umrechnung }
+            \ut_label:n { \conversionname }
                \SI { 1 } { #5 } ~
                \dim_compare:nF { \l_tmpa_dim = 1mm } {
                    = ~ \SI { \dim_to_decimal_in_unit:nn { \l_tmpa_dim } { 1mm } } { mm } ~
