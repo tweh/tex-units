@@ -1,25 +1,30 @@
+% To be able to process this file with a script to automatically generate the
+% different versions, we define two variable with \def when compiling, like in
+%    pdflatex "\def\LANGUAGE{english}\def\COLORMODEL{rgb}\input{tex-units}"
+% if we compile the usual way instead, we provide these variables:
+\providecommand{\LANGUAGE}{eglish}% language: 'ngerman' or 'english'
+\providecommand{\COLORMODEL}{rgb}% color model: 'rgb' or 'gray'
+% We use the variable as class options. YOu may replace them with an appropriate
+% value.
 \documentclass[
-   ngerman,% language: 'ngerman' or 'english'
-   rgb,% color model: 'rgb' or 'gray'
-%   draft,
+   \LANGUAGE,
+   \COLORMODEL,
 ]{scrartcl}
 
-\input{header}% load definition file
+% LOAD DEFINITIONS
+\input{header}
 
 % LANGUAGE VARIABLES
-% be able to switch the language easyle, we define variables in
-% different language files.
-% If the language is ngerman we load the appropriate file:
+% To be able to switch the language easily, we define some variables in different
+% language files. If the language is ngerman we load the corresponding file:
 \iflanguage{ngerman}{
    \input{content-variables-ngerman}
 }{}
-% However we load the english variable in every case to
-% be sure to have them defined even in unkown languages:
+% However we load the english variable in every case to make sure to have the
+% variables defined even in unkown languages:
 \input{content-variables-english}
-% inside of this file we use \providecommand to define the
-% variables so we don't overwrite the defined variables
-% of other languages. \providecommand is "ignored" if
-% the macor is already defined.
+% inside of this file we use \providecommand to define the variables so we don't
+% overwrite the definitions of other languages.
 
 \begin{document}
 % CONTENT
