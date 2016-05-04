@@ -2,7 +2,7 @@
 % different versions, we define two variable with \def when compiling, like in
 %    pdflatex "\def\LANGUAGE{english}\def\COLORMODEL{rgb}\input{tex-units}"
 % if we compile the usual way instead, we provide these variables:
-\providecommand{\LANGUAGE}{eglish}% language: 'ngerman' or 'english'
+\providecommand{\LANGUAGE}{ngerman}% language: 'ngerman' or 'english'
 \providecommand{\COLORMODEL}{rgb}% color model: 'rgb' or 'gray'
 % We use the variable as class options. YOu may replace them with an appropriate
 % value.
@@ -29,20 +29,23 @@
 \begin{document}
 % CONTENT
 {\Huge\bfseries\TITLE\par}
+
 \vspace{\baselineskip}
 \INTRO
-\par\vspace{2\baselineskip}
-\begin{multicols}{2}
-   \PRIMARYUNITS
+
+\begin{multicols}{2}[\section{\ABSOLUTEUNITSHEADLINE}]
+   \ABSOLUTEUNITSCONTENT
 \end{multicols}
-\par\vspace{2\baselineskip}
-\begin{multicols}{3}
-   \SECONDARYUNITS
+
+\vspace{0.5\baselineskip}
+\begin{multicols}{3}[\section{\RELATIVEUNITSHEADLINE}\RELATIVEUNITSPRETEXT]
+   \RELATIVEUNITSCONTENT
 \end{multicols}
-\par\vfill
+
+\vfill
 \footnotesize\itshape
 \INFOTEXT
-\par
+
 \makebox[0pt][l]{\smash{
    \hspace{\RightColShift}%
    \begin{minipage}[t]{\RightColWidth}

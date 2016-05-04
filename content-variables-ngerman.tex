@@ -10,7 +10,9 @@
    genau dargestellt werden können und deswegen dicker erscheinen.
 }
 
-\newcommand{\PRIMARYUNITS}{%
+\newcommand{\ABSOLUTEUNITSHEADLINE}{Absolute Einheiten}
+
+\newcommand{\ABSOLUTEUNITSCONTENT}{%
    \TestUnit
       {Skalierter Punkt (\textit{Scaled Point})}
       {Ein skalierter Punkt entspricht 1/\num{65536} Punkt.}
@@ -33,18 +35,28 @@
       Zentimetern.}{in}
 }
 
-\newcommand{\SECONDARYUNITS}{%
+\providecommand{\RELATIVEUNITSHEADLINE}{Relative Einheiten}
+
+\providecommand{\RELATIVEUNITSPRETEXT}{%
+   Diese Einheiten sind abhängig von der jeweils verwendeten Schriftgröße.
+   
+   Details über die Einheiten Em und Ex unter: \url{http://tex.stackexchange.com/q/4239/4918}
+   (Englisch)
+}
+
+\newcommand{\RELATIVEUNITSCONTENT}{%
    \TestUnit*
       {Geviert (\emph{Em})}
-      {Ein Geviert ist abhängig von der aktuellen Schriftart und -größe. Diese Einheit wird
-         über die Schriftdatei eingestellt.}
+      {Traditionell wurde das Geviert als die Breite eines großen M definiert oder gleich
+         der Schriftgröße gesetzt. Heutzutage wird der tatsächliche Wert in der Schriftdatei
+         definiert.}
       [Diese Einheit sollte für alle horizontalen Abstände, die sich mit der Schriftgröße
          ändern, verwendet werden, z.\,B. den Absatzeinzug.]
       {em}
    \TestUnit*
       {x-Höhe (\emph{Ex})}
-      {Die x-Höhe ist abhängig von der aktuellen Schriftart und -größe. Sie bezieht
-         sich auf die Höhe der Kleinbuchstaben und wird über die Schriftdatei eingestellt.}
+      {Diese Einheit bezog sich auf die Höhe eines kleinen x, wird heute aber wie das
+         Gevierit in der Schriftdatei definiert.}
       [Diese Einheit sollte für alle vertikalen Abstände, die sich mit der Schriftgröße
          ändern, verwendet werden.]
       {ex}
@@ -57,6 +69,6 @@
 }
 
 \newcommand{\INFOTEXT}{%
-   Copyright © 2016, Tobias Weh (\href{http://tobiw.de}{tobiw.de})\\
-   Quellcode unter \url{https://github.com/tweh/tex-units} verfügbar.
+   Copyright \raisebox{-0.2ex}{©} 2016, Tobias Weh (\href{http://tobiw.de}{tobiw.de})\\
+   Quellcode unter: \url{https://github.com/tweh/tex-units}
 }

@@ -3,14 +3,16 @@
 \providecommand{\TITLE}{Length units in \TeX}
 
 \providecommand{\INTRO}{%
-   The given conversions my suffer form rounding errors and are only for guidance.
+   The given conversions may suffer form rounding errors and are only for guidance.
    
    The shown rules are \SI{1}{\mm} thick. Please note that the very short rules
-   may not be rendered correctly on you screen (or printer) and appear longer
+   may not be rendered correctly on your screen (or printer) and appear longer
    than they are.
 }
 
-\providecommand{\PRIMARYUNITS}{%
+\providecommand{\ABSOLUTEUNITSHEADLINE}{Absolute Units}
+
+\providecommand{\ABSOLUTEUNITSCONTENT}{%
    \TestUnit
       {Scaled Point}
       {The scaled point is defined as 1/\num{65536} points.}
@@ -30,28 +32,37 @@
    \TestUnit{Inch}{One inch equals \num{2.54} centimeters.}{in}
 }
 
-\providecommand{\SECONDARYUNITS}{%
+\providecommand{\RELATIVEUNITSHEADLINE}{Relative Units}
+
+\providecommand{\RELATIVEUNITSPRETEXT}{%
+   These units depend on the currently active font size.
+   
+   For more details about em and ex see: \url{http://tex.stackexchange.com/q/4239/4918}
+}
+
+\providecommand{\RELATIVEUNITSCONTENT}{%
    \TestUnit*
       {Em}
-      {The size of an em depends on the current font family and size. It is about the width
-         of a capital M and its value is defined in the font file.}
-      [This unit should be used for all horizontal distances, that should change with font size,
-         e.g. the paragraph indention.]
+      {Traditionally, an em was defined as the width of a capital M or to be equal to
+         the font size, but today the actual value is defined in the font file.}
+      [This unit should be used for all horizontal distances that should change relative
+         to the font size; the paragraph indention for instance.]
       {em}
    \TestUnit*
-      {x Height}
-      {The x height depends on the current font family and size. It is about the height
-         of a lower x and its value is defined in the font file.}
-      [This unit should be used for all vertical distances, that should change with font size.]
+      {Ex (x Height)}
+      {Traditionally, an ex was defined as the height of a lower case x, but today
+         the actual value is defined in the font file.}
+      [This unit should be used for all vertical distances that should change relative
+         to the font size.]
       {ex}
    \TestUnit*
       {Math Unit}
-      {This unit equals approx. 1/18 em of the math font family.}
+      {This unit equals approx 1/18 em of the math font family.}
       [It can only be used for spacing in math mode.]
       {mu}
 }
 
 \providecommand{\INFOTEXT}{%
-   Copyright © 2016, Tobias Weh (\href{http://tobiw.de/en}{tobiw.de/en})\\
-   Source code available at \url{https://github.com/tweh/tex-units}.
+   Copyright \raisebox{-0.2ex}{©} 2016, Tobias Weh (\href{http://tobiw.de/en}{tobiw.de/en})\\
+   Source code available at: \url{https://github.com/tweh/tex-units}
 }
