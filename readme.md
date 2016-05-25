@@ -1,6 +1,7 @@
 # Units in TeX
 
 A visual overview of the **length units** available in TeX.  
-(english and german versions as well as colored and b/w)
+
+_Including English and German versions as well as colored and b/w ones._
 
 ![preview](tex-units_preview.png)
