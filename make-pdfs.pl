@@ -33,6 +33,10 @@ for (my $l = 0; $l < @lang_names; ++$l) {
 	}
 }
 
+# zip files
+$job = "zip units-in-tex.zip tex-units_*_*.pdf";
+system($job);
+
 # remove aux files etc.
 system("rm *.aux");
 system("rm *.log");
